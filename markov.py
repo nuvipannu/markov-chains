@@ -1,24 +1,24 @@
 import random 
 
-green_eggs = open('green-eggs.txt')
+filepath = open('green-eggs.txt')
 
 def make_chains_func(corpus):
     """Takes input text as string; returns dictionary of markov chains."""
-    mark_chains = {}
+    markov_dictionay = {}
 
 
-    text_green_eggs = corpus.read()
-    green_eggs_list = text_green_eggs.split()
+    file_text = corpus.read()
+    words_list = file_text.split()
 
-    for i in range(len(green_eggs_list) - 2):
-        key = (green_eggs_list[i], green_eggs_list[i + 1])
-        value =  green_eggs_list[i + 2]
-        if key not in mark_chains:
-            mark_chains[key] = [value]
+    for i in range(len(words_list) - 2):
+        key = (words_list[i], words_list[i + 1])
+        value =  words_list[i + 2]
+        if key not in markov_dictionay:
+            markov_dictionay[key] = [value]
         else:
-            mark_chains[key].append(value)
+            markov_dictionay[key].append(value)
         
-    return mark_chains
+    return markov_dictionay
 
 
 def create_text(dictionary):
@@ -26,7 +26,7 @@ def create_text(dictionary):
 
     #Step 1. Pick a random key"""
     current_randkey = random.choice(dictionary.keys())
-    print current_randkey
+    # print current_randkey
 
 
     # Step 2. Put that key words in a list/ or create a string
@@ -53,6 +53,6 @@ def create_text(dictionary):
     print " ".join(word_list)
 
 
-the_dictionary = make_chains_func(green_eggs)
+the_dictionary = make_chains_func(filepath)
 
 create_text(the_dictionary)
