@@ -1,57 +1,58 @@
-import sys 
-print sys.argv
+import random 
 
 green_eggs = open('green-eggs.txt')
 
-def make_chains(green_eggs):
+def make_chains_func(corpus):
     """Takes input text as string; returns dictionary of markov chains."""
-mark_chains = {}
+    mark_chains = {}
 
 
-text_green_eggs = green_eggs.read()
-green_eggs_list = text_green_eggs.split()
+    text_green_eggs = corpus.read()
+    green_eggs_list = text_green_eggs.split()
 
-for i in range(len(green_eggs_list) - 2):
-    key = (green_eggs_list[i], green_eggs_list[i + 1])
-    value =  green_eggs_list[i + 2]
-   
-    if key not in mark_chains:
-        mark_chains[key] = []
+    for i in range(len(green_eggs_list) - 2):
+        key = (green_eggs_list[i], green_eggs_list[i + 1])
+        value =  green_eggs_list[i + 2]
+        if key not in mark_chains:
+            mark_chains[key] = [value]
+        else:
+            mark_chains[key].append(value)
         
-    mark_chains[key].append(value)
-
-print mark_chains
+    return mark_chains
 
 
+def create_text(dictionary):
+    """Takes input dictionary and returns a chain of text created from dictionary."""
 
-#     #we have the words in a list separately as items and we have created an empty dict
-#         #for the length of the list, we want to:
-#         #get the [0] term, assign it to key
-#         # get the [1] term, assign it to value
-#         # get the [1] term, assign to key
-#         # get the [2] term, assign to value, etc until the end of the list
-#     # for len(green_eggs_list):
-#     #     green_eggs_list[0] = key
-#     #     green_eggs_list[1] = value
-#     #     green_eggs_dict[key] = [value]
-#     # return {}
-
-# def make_text(chains):
-#     """Takes dictionary of markov chains; returns random text."""
-
-#     return "Here's some random text."
+    #Step 1. Pick a random key"""
+    current_randkey = random.choice(dictionary.keys())
+    print current_randkey
 
 
-# Change this to read input_text from a file, deciding which file should
-# be used by examining the `sys.argv` arguments (if neccessary, see the
-# Python docs for sys.argv)
+    # Step 2. Put that key words in a list/ or create a string
 
-# input_text = "Some text"
+    word_list = [current_randkey[0], current_randkey[1]]
+    # print word_list
+     
+    # Step 3. while key in dict
 
-# # Get a Markov chain
-# chain_dict = make_chains(input_text)
+    while current_randkey in dictionary:
+    # # # Step 4. Choose a random value from key 
+        value = random.choice(dictionary[current_randkey])
+        # print value
+    # Step 5. Add that value to that list of words
+        word_list.append(value)
 
-# # Produce random text
-# random_text = make_text(chain_dict)
+        # print word_list
 
-# print random_text
+    # Step 6. Make a new key from the second word of current key and value word just choosen
+        current_randkey = (current_randkey[1], value)  
+
+    # Step 7. Once the while loop exits, print out all the words (string) 
+
+    print " ".join(word_list)
+
+
+the_dictionary = make_chains_func(green_eggs)
+
+create_text(the_dictionary)
