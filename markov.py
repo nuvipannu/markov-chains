@@ -1,6 +1,7 @@
+import sys
 import random 
 
-filepath = open('green-eggs.txt')
+# filepath = open('green-eggs.txt')
 
 def make_chains_func(corpus):
     """Takes input text as string; returns dictionary of markov chains."""
@@ -49,10 +50,17 @@ def create_text(dictionary):
         current_randkey = (current_randkey[1], value)  
 
     # Step 7. Once the while loop exits, print out all the words (string) 
+        
+    return " ".join(word_list)
 
-    print " ".join(word_list)
+input_path = sys.argv[1]
+input_text = open(input_path).read()
+
+#Get a markov chain
+
+the_dictionary = make_chains_func(input_text)
 
 
-the_dictionary = make_chains_func(filepath)
-
-create_text(the_dictionary)
+# Produce random text
+random_text = create_text(the_dictionary)
+print random_text
