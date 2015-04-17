@@ -8,8 +8,8 @@ def make_chains_func(corpus):
     markov_dictionay = {}
 
 
-    file_text = corpus.read()
-    words_list = file_text.split()
+    input_text = corpus
+    words_list = input_text.split()
 
     for i in range(len(words_list) - 2):
         key = (words_list[i], words_list[i + 1])
